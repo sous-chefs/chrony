@@ -4,6 +4,16 @@
 
 Configures the time synchronization application `chrony` as a client or master timeserver, maintaining the accuracy of the system clock (similar to NTP). Isolated networks are supported as well.
 
+## Requirements
+
+### Platforms
+
+- Debian / Ubuntu
+
+### Chef
+
+- Chef 13+
+
 ## Recipes
 
 ### client
