@@ -1,9 +1,8 @@
 #
-# Author:: Matt Ray <matt@opscode.com>
+# Author:: Matt Ray <matt@@chef.io>
 # Cookbook Name:: chrony
 # Attributes:: default
-#
-# Copyright 2011 Opscode, Inc
+# Copyright:: 2011-2018 Chef Software, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -18,18 +17,18 @@
 # limitations under the License.
 #
 
-#hash of default servers in the chrony.conf from Ubuntu
-default[:chrony][:servers] = {
-  "0.debian.pool.ntp.org" => "offline minpoll 8",
-  "1.debian.pool.ntp.org" => "offline minpoll 8",
-  "2.debian.pool.ntp.org" => "offline minpoll 8",
-  "3.debian.pool.ntp.org" => "offline minpoll 8"
+# hash of default servers in the chrony.conf from Ubuntu
+default['chrony']['servers'] = {
+  '0.debian.pool.ntp.org' => 'offline minpoll 8',
+  '1.debian.pool.ntp.org' => 'offline minpoll 8',
+  '2.debian.pool.ntp.org' => 'offline minpoll 8',
+  '3.debian.pool.ntp.org' => 'offline minpoll 8',
 }
 
-default[:chrony][:server_options] = "offline minpoll 8"
+default['chrony']['server_options'] = 'offline minpoll 8'
 
-#set in the client & master recipes
-default[:chrony][:allow] = ["allow"]
+# set in the client & master recipes
+default['chrony']['allow'] = ['allow']
 
-#set in the client & master recipes
-default[:chrony][:initslewstep] = ""
+# set in the client & master recipes
+default['chrony']['initslewstep'] = ''

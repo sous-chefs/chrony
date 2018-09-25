@@ -1,9 +1,8 @@
 #
-# Author:: Matt Ray <matt@opscode.com>
+# Author:: Matt Ray <matt@@chef.io>
 # Cookbook Name:: chrony
 # Recipe:: client
-#
-# Copyright 2011, Opscode, Inc
+# Copyright:: 2011-2018 Chef Software, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -18,35 +17,35 @@
 # limitations under the License.
 #
 
-package "chrony"
+package 'chrony'
 
-service "chrony" do
-  supports :restart => true, :status => true, :reload => true
+service 'chrony' do
+  supports restart: true, status: true, reload: true
   action [ :enable ]
 end
 
-#clients aren't servers by default
-node.default[:chrony][:allow] = []
+# clients aren't servers by default
+node.default['chrony']['allow'] = []
 
-#search for the chrony master(s), if found populate the template accordingly
-#typical deployment will only have 1 master, but still allow for multiple
+# search for the chrony master(s), if found populate the template accordingly
+# typical deployment will only have 1 master, but still allow for multiple
 masters = search(:node, 'recipes:chrony\:\:master') || []
-if masters.length > 0
-  node.default[:chrony][:servers] = {}
+if !masters.empty?
+  node.default['chrony']['servers'] = {}
   masters.each do |master|
-    node[:chrony][:servers][master.ipaddress] = master[:chrony][:server_options]
-    node[:chrony][:allow].push "allow #{master.ipaddress}"
-    #only use 1 server to sync initslewstep
-    node[:chrony][:initslewstep] = "initslewstep 20 #{master.ipaddress}"
+    node.default['chrony']['servers'][master.ipaddress] = master['chrony']['server_options']
+    node.default['chrony']['allow'].push "allow #{master.ipaddress}"
+    # only use 1 server to sync initslewstep
+    node.default['chrony']['initslewstep'] = "initslewstep 20 #{master.ipaddress}"
   end
 else
-  Chef::Log.info("No chrony master(s) found, using node[:chrony][:servers] attribute.")
+  Chef::Log.info('No chrony master(s) found, using node[:chrony][:servers] attribute.')
 end
 
-template "/etc/chrony/chrony.conf" do
-  owner "root"
-  group "root"
-  mode 0644
-  source "chrony.conf.erb"
-  notifies :restart, "service[chrony]"
+template '/etc/chrony/chrony.conf' do
+  owner 'root'
+  group 'root'
+  mode '0644'
+  source 'chrony.conf.erb'
+  notifies :restart, 'service[chrony]'
 end
