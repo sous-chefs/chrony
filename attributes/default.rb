@@ -42,11 +42,11 @@ else
   }
 end
 
-if node['platform_family'] == 'rhel'
-  default['chrony']['service'] = 'chronyd'
-else
-  default['chrony']['service'] = 'chrony'
-end
+default['chrony']['service'] = if node['platform_family'] == 'rhel'
+                                 'chronyd'
+                               else
+                                 'chrony'
+                               end
 
 default['chrony']['server_options'] = 'offline minpoll 8'
 
