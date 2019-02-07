@@ -36,7 +36,7 @@ if !masters.empty?
     node.default['chrony']['servers'][master['ipaddress']] = master['chrony']['server_options']
     node.default['chrony']['allow'].push "allow #{master['ipaddress']}"
     # only use 1 server to sync initslewstep
-    node.default['chrony']['initslewstep'] = "initslewstep 20 #{master['ipaddress']}"
+    node.default['chrony']['initstepslew'] = "initstepslew 20 #{master['ipaddress']}"
   end
 else
   Chef::Log.info('No chrony master(s) found, using node[:chrony][:servers] attribute.')

@@ -25,10 +25,13 @@ default['chrony']['servers'] = {
   '3.debian.pool.ntp.org' => 'offline minpoll 8',
 }
 
+# if this server turns out to be a NTP server and is picked by others nodes
+# running the client recipe, this attribute will be used as the NTP options
+# for this server
 default['chrony']['server_options'] = 'offline minpoll 8'
 
 # set in the client & master recipes
 default['chrony']['allow'] = ['allow']
 
 # set in the client & master recipes
-default['chrony']['initslewstep'] = ''
+default['chrony']['initstepslew'] = ''
