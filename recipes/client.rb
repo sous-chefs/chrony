@@ -33,10 +33,10 @@ masters = search(:node, 'recipes:chrony\:\:master') || []
 if !masters.empty?
   node.default['chrony']['servers'] = {}
   masters.each do |master|
-    node.default['chrony']['servers'][master.ipaddress] = master['chrony']['server_options']
-    node.default['chrony']['allow'].push "allow #{master.ipaddress}"
+    node.default['chrony']['servers'][master['ipaddress']] = master['chrony']['server_options']
+    node.default['chrony']['allow'].push "allow #{master['ipaddress']}"
     # only use 1 server to sync initslewstep
-    node.default['chrony']['initslewstep'] = "initslewstep 20 #{master.ipaddress}"
+    node.default['chrony']['initslewstep'] = "initslewstep 20 #{master['ipaddress']}"
   end
 else
   Chef::Log.info('No chrony master(s) found, using node[:chrony][:servers] attribute.')
