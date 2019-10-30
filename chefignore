@@ -45,23 +45,19 @@ a.out
 
 # Testing #
 ###########
-.watchr
 .rspec
 spec/*
 spec/fixtures/*
 test/*
 features/*
 examples/*
-Guardfile
 Procfile
 .kitchen*
-kitchen.yml*
 .rubocop.yml
 spec/*
-Rakefile
 .travis.yml
 .foodcritic
-.codeclimate.yml
+appveyor.yml
 
 # SCM #
 #######
@@ -83,10 +79,6 @@ Berksfile.lock
 cookbooks/*
 tmp
 
-# Bundler #
-###########
-vendor/*
-
 # Policyfile #
 ##############
 Policyfile.rb
@@ -98,7 +90,3 @@ CONTRIBUTING*
 CHANGELOG*
 TESTING*
 
-# Vagrant #
-###########
-.vagrant
-Vagrantfile
