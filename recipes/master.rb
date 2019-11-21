@@ -19,7 +19,7 @@
 
 package 'chrony'
 
-service 'chrony' do
+service node['chrony']['service'] do
   supports restart: true, status: true, reload: true
   action [ :enable]
 end
@@ -51,5 +51,5 @@ template '/etc/chrony/chrony.conf' do
   group 'root'
   mode '0644'
   source 'chrony.conf.erb'
-  notifies :restart, 'service[chrony]'
+  notifies :restart, "service[#{node['chrony']['service']}]"
 end
