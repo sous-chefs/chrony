@@ -46,7 +46,7 @@ else # else use first 3 clients
   end
 end
 
-template '/etc/chrony/chrony.conf' do
+template node['chrony']['config_path'] do
   owner 'root'
   group 'root'
   mode '0644'

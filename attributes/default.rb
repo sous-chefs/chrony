@@ -48,6 +48,12 @@ default['chrony']['service'] = if node['platform_family'] == 'rhel'
                                  'chrony'
                                end
 
+default['chrony']['config_path'] = if node['platform_family'] == 'rhel'
+                                 '/etc/chrony.conf'
+                               else
+                                 '/etc/chrony/chrony.conf'
+                               end
+
 default['chrony']['server_options'] = 'offline minpoll 8'
 
 # set in the client & master recipes
