@@ -9,6 +9,7 @@ Configures the time synchronization application `chrony` as a client or master t
 ### Platforms
 
 - Debian / Ubuntu
+- CentOS / Redhat
 
 ### Chef
 
@@ -40,8 +41,9 @@ The current configurations are supported:
 ## License and Author
 
 Author:: Matt Ray (<matt@@chef.io>)
+Contributor:: Dang H. Nguyen (<dang.nguyen@disney.com>)
 
-Copyright:: 2011-2018 Chef Software, Inc..
+Copyright:: 2011-2020 Chef Software, Inc..
 
 ```text
 Licensed under the Apache License, Version 2.0 (the "License");

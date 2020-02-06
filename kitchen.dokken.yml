@@ -1,11 +1,15 @@
 ---
 driver:
-  name: vagrant
+  name: dokken
+  privileged: true # because Docker and SystemD/Upstart
   chef_version: <%= ENV['CHEF_VERSION'] || 'stable' %>
   chef_license: accept
 
+transport:
+  name: dokken
+
 provisioner:
-  name: chef_zero
+  name: dokken
   deprecations_as_errors: true
   # You may wish to disable always updating cookbooks in CI or other testing environments.
   # For example:
@@ -14,16 +18,23 @@ provisioner:
 
 verifier:
   name: inspec
+  root_path: '/opt/verifier'
 
 platforms:
-  - name: ubuntu-18.04
+  - name: ubuntu-18.10
     driver:
-      box: ubuntu/bionic64
+      intermediate_instructions:
+        - RUN /usr/bin/apt-get -y update
   - name: ubuntu-19.10
     driver:
-      box: ubuntu/eoan64
+      intermediate_instructions:
+        - RUN /usr/bin/apt-get -y update
   - name: centos-7
+    driver:
+      pid_one_command: /usr/lib/systemd/systemd
   - name: centos-8
+    driver:
+      pid_one_command: /usr/lib/systemd/systemd
 
 suites:
   - name: client

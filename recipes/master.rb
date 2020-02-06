@@ -2,7 +2,7 @@
 # Author:: Matt Ray <matt@@chef.io>
 # Cookbook:: chrony
 # Recipe:: master
-# Copyright:: 2011-2019, Chef Software, Inc.
+# Copyright:: 2011-2020, Chef Software, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -19,9 +19,21 @@
 
 package 'chrony'
 
+systemd_unit "#{chrony_service_name}.service" do
+  action %i(create enable)
+  content node['chrony']['systemd']
+  verify false
+  only_if { systemd? }
+end
+
 service 'chrony' do
+  service_name chrony_service_name
   supports restart: true, status: true, reload: true
-  action [ :enable]
+  if systemd? && docker?
+    start_command "systemctl --no-block start #{chrony_service_name}"
+    restart_command "systemctl --no-block restart #{chrony_service_name}"
+  end
+  action %i(start enable)
 end
 
 # set the allowed hosts to the subnet
@@ -30,26 +42,31 @@ end
 # node['chrony'][:allow] = ["allow #{ip[0]}.#{ip[1]}"]
 
 # if there are NTP servers, use the first 3 for the initslew
-if !node['chrony']['servers'].empty?
-  node.default['chrony']['initslewstep'] = 'initslewstep 10'
-  keys = node['chrony']['servers'].keys.sort
-  count = 3
-  count = keys.length if keys.length < count
-  count.times { |x| node.default['chrony']['initslewstep'] += " #{keys[x]}" }
-else # else use first 3 clients
+if node['chrony']['servers'].empty?
   clients = search(:node, 'recipes:chrony\:\:client').sort || []
   unless clients.empty?
     node.default['chrony']['initslewstep'] = 'initslewstep 10'
     count = 3
     count = clients.length if clients.length < count
-    count.times { |x| node['chrony']['initslewstep'] += " #{clients[x].ipaddress}" }
+    count.times { |x| node.default['chrony']['initslewstep'] += " #{clients[x].ipaddress}" }
   end
+else
+  node.default['chrony']['initslewstep'] = 'initslewstep 10'
+  keys = node['chrony']['servers'].keys.sort
+  count = 3
+  count = keys.length if keys.length < count
+  count.times { |x| node.default['chrony']['initslewstep'] += " #{keys[x]}" }
 end
 
-template '/etc/chrony/chrony.conf' do
+template 'chrony.conf' do
+  path chrony_conf_file
+  source 'chrony_master.conf.erb'
   owner 'root'
   group 'root'
   mode '0644'
-  source 'chrony.conf.erb'
+  variables allow: node['chrony']['allow'],
+            driftfile: node['chrony']['driftfile'],
+            log_dir: node['chrony']['log_dir'],
+            servers: node['chrony']['servers']
   notifies :restart, 'service[chrony]'
 end
