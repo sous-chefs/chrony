@@ -3,7 +3,7 @@
 # Libraries:: helpers
 #
 # Author: Dang H. Nguyen <dang.nguyen@disney.com>
-# Copyright:: 2019, Chef Software, Inc <legal@chef.io>
+# Copyright:: 2020, Chef Software, Inc <legal@chef.io>
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.

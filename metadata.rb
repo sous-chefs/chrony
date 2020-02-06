@@ -9,9 +9,7 @@ chef_version     '>= 13.0'
 issues_url 'https://github.com/chef-cookbook/chrony/issues'
 source_url 'https://github.com/chef-cookbook/chrony'
 
-%w( debian ubuntu ).each do |os|
-  supports os
-end
-
+supports 'debian'
+supports 'ubuntu'
 supports 'redhat', '>= 7.0'
 supports 'centos', '>= 7.0'

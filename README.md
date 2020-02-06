@@ -43,7 +43,7 @@ The current configurations are supported:
 Author:: Matt Ray (<matt@@chef.io>)
 Contributor:: Dang H. Nguyen (<dang.nguyen@disney.com>)
 
-Copyright:: 2011-2019 Chef Software, Inc..
+Copyright:: 2011-2020 Chef Software, Inc..
 
 ```text
 Licensed under the Apache License, Version 2.0 (the "License");

@@ -2,7 +2,7 @@
 # Cookbook:: chrony
 # Spec:: client
 #
-# Copyright:: 2019, The Authors, All Rights Reserved.
+# Copyright:: 2020, The Authors, All Rights Reserved.
 
 require 'spec_helper'
 

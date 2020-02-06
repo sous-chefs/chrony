@@ -48,7 +48,7 @@ if node['chrony']['servers'].empty?
     node.default['chrony']['initslewstep'] = 'initslewstep 10'
     count = 3
     count = clients.length if clients.length < count
-    count.times { |x| node['chrony']['initslewstep'] += " #{clients[x].ipaddress}" }
+    count.times { |x| node.default['chrony']['initslewstep'] += " #{clients[x].ipaddress}" }
   end
 else
   node.default['chrony']['initslewstep'] = 'initslewstep 10'
