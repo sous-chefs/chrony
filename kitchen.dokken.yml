@@ -2,7 +2,7 @@
 driver:
   name: dokken
   privileged: true # because Docker and SystemD/Upstart
-  chef_version: <%= ENV['CHEF_VERSION'] || 'current' %>
+  chef_version: <%= ENV['CHEF_VERSION'] || 'stable' %>
   chef_license: accept
 
 transport:
@@ -21,28 +21,20 @@ verifier:
   root_path: '/opt/verifier'
 
 platforms:
-  - name: ubuntu-18.04
+  - name: ubuntu-18.10
     driver:
-      image: dokken/ubuntu-18.04
       intermediate_instructions:
         - RUN /usr/bin/apt-get -y update
   - name: ubuntu-19.10
     driver:
-      image: dokken/ubuntu-19.10
       intermediate_instructions:
         - RUN /usr/bin/apt-get -y update
   - name: centos-7
     driver:
-      image: dokken/centos-7
       pid_one_command: /usr/lib/systemd/systemd
-      intermediate_instructions:
-        - RUN /usr/bin/yum -y update
   - name: centos-8
     driver:
-      image: dokken/centos-8
       pid_one_command: /usr/lib/systemd/systemd
-      intermediate_instructions:
-        - RUN /usr/bin/yum -y update
 
 suites:
   - name: client

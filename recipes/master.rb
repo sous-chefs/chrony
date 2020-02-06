@@ -29,7 +29,7 @@ end
 service 'chrony' do
   service_name chrony_service_name
   supports restart: true, status: true, reload: true
-  if systemd? && running_in_docker?
+  if systemd? && docker?
     start_command "systemctl --no-block start #{chrony_service_name}"
     restart_command "systemctl --no-block restart #{chrony_service_name}"
   end
