@@ -68,6 +68,6 @@ when 'debian', 'ubuntu'
 end
 
 default['chrony']['systemd']['Install'] = {
-  'Alias' => 'chronyd.service',
+  'Alias' => 'chrony.service',
   'WantedBy' => 'multi-user.target',
 }
