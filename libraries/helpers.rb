@@ -20,7 +20,7 @@
 
 # this systemd? helper method might collide with Chef Infra Client >= 15.5
 # leaving here for older Chef Infra Clients
-unless respond_to?(:systmed?)
+unless respond_to?(:systemd?)
   def systemd?
     ::File.exist?('/proc/1/comm') && ::File.new('/proc/1/comm').gets.chomp == 'systemd'
   end
@@ -45,15 +45,4 @@ def chrony_conf_file
     %w(rhel fedora amazon) => '/etc/chrony.conf',
     'default' => '/etc/chrony/chrony.conf'
   )
-end
-
-# this detects whether the chef client is being executed in a docker container
-# since chronyd might fail if the docker container does not have privileged access
-# to the host (e.g., while be run in travis-ci container via kitchen-dokken),
-# we need it to gracefully fail.
-unless respond_to?(:docker?)
-  def docker?
-    docker = shell_out('grep docker /proc/self/cgroup')
-    !docker.stdout.empty?
-  end
 end
