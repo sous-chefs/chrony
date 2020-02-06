@@ -1,7 +1,7 @@
 ---
 driver:
   name: vagrant
-  chef_version: <%= ENV['CHEF_VERSION'] || 'current' %>
+  chef_version: <%= ENV['CHEF_VERSION'] || 'stable' %>
   chef_license: accept
 
 provisioner:

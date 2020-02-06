@@ -1,9 +1,8 @@
 #
 # Author:: Matt Ray <matt@@chef.io>
-# Contributor:: Dang H. Nguyen <dang.nguyen@disney.com>
 # Cookbook:: chrony
 # Recipe:: master
-# Copyright:: 2011-2019 Chef Software, Inc.
+# Copyright:: 2011-2020, Chef Software, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
