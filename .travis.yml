@@ -1,13 +1,46 @@
-services:
-  - docker
+addons:
+  apt:
+    sources:
+      - chef-current-xenial
+    packages:
+      - chef-workstation
 
-install:
-  - docker pull chef/chefdk
+install: echo "skip bundle install"
 
 branches:
   only:
     - master
 
-script:
-  - docker run -t chef/chefdk chef -v
-  - docker run -v $PWD:/cookbook -w /cookbook -t chef/chefdk delivery local all
+services: docker
+
+os:
+  - linux
+
+env:
+  matrix:
+    - INSTANCE=client-ubuntu-1804
+    - INSTANCE=client-ubuntu-1910
+    - INSTANCE=client-centos-7
+    - INSTANCE=client-centos-8
+    - INSTANCE=master-ubuntu-1804
+    - INSTANCE=master-ubuntu-1910
+    - INSTANCE=master-centos-7
+    - INSTANCE=master-centos-8
+
+before_script:
+  - if [ "$TRAVIS_OS_NAME" = "linux" ]; then sudo iptables -L DOCKER || ( echo "DOCKER iptables chain missing" ; sudo iptables -N DOCKER ); fi
+  - eval "$(chef shell-init bash)"
+
+script: CHEF_LICENSE=accept KITCHEN_LOCAL_YAML=kitchen.dokken.yml kitchen verify ${INSTANCE}
+
+matrix:
+  include:
+    - before_script:
+      - chef --version
+      - cookstyle --version
+      - foodcritic --version
+    - script:
+      - delivery local all
+      env:
+        - UNIT_AND_LINT=1
+        - CHEF_LICENSE=accept

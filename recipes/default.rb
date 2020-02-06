@@ -1,6 +1,6 @@
 #
 # Author:: Matt Ray <matt@@chef.io>
-# Cookbook Name:: chrony
+# Cookbook:: chrony
 # Recipe:: default
 # Copyright:: 2011-2018 Chef Software, Inc.
 #

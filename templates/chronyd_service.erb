@@ -1,0 +1,7 @@
+<% @systemd_configs.each do |section, settings| %>
+<%= "[#{section.capitalize}]" %>
+<% settings.each do |key, value| %>
+<%= "#{key}=#{value}" %>
+<% end %>
+
+<% end %>
