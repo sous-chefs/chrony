@@ -7,14 +7,14 @@ addons:
 
 install: echo "skip bundle install"
 
+env:
+  - CHEF_LICENSE=accept
+
 branches:
   only:
     - master
 
 services: docker
-
-os:
-  - linux
 
 env:
   matrix:
@@ -28,7 +28,16 @@ env:
     - INSTANCE=master-centos-8
 
 before_script:
-  - if [ "$TRAVIS_OS_NAME" = "linux" ]; then sudo iptables -L DOCKER || ( echo "DOCKER iptables chain missing" ; sudo iptables -N DOCKER ); fi
+  - sudo iptables -L DOCKER || ( echo "DOCKER iptables chain missing" ; sudo iptables -N DOCKER )
   - eval "$(chef shell-init bash)"
+  - chef --version
 
-script: CHEF_LICENSE=accept KITCHEN_LOCAL_YAML=kitchen.dokken.yml kitchen verify ${INSTANCE}
+script: KITCHEN_LOCAL_YAML=kitchen.dokken.yml CHEF_VERSION=${CHEF_VERSION} kitchen verify ${INSTANCE}
+
+matrix:
+  include:
+    - script:
+      - delivery local all
+      env:
+        - UNIT_AND_LINT=1
+        - CHEF_LICENSE=accept
