@@ -1,7 +1,7 @@
 ---
 driver:
   name: dokken
-  privileged: true # because Docker and SystemD/Upstart
+  privileged: true # because Docker and SystemD
   chef_version: <%= ENV['CHEF_VERSION'] || 'current' %>
   chef_license: accept-no-persist
 
@@ -11,29 +11,45 @@ transport:
 provisioner:
   name: dokken
   deprecations_as_errors: true
-  # You may wish to disable always updating cookbooks in CI or other testing environments.
-  # For example:
-  #   always_update_cookbooks: <%= !ENV['CI'] %>
-  always_update_cookbooks: true
+  chef_license: accept-no-persist
 
 verifier:
   name: inspec
 
 platforms:
-  - name: ubuntu-18.10
-    driver:
-      intermediate_instructions:
-        - RUN /usr/bin/apt-get -y update
-  - name: ubuntu-19.10
-    driver:
-      intermediate_instructions:
-        - RUN /usr/bin/apt-get -y update
   - name: centos-7
     driver:
+      image: dokken/centos-7
       pid_one_command: /usr/lib/systemd/systemd
+
   - name: centos-8
     driver:
+      image: dokken/centos-8
       pid_one_command: /usr/lib/systemd/systemd
+
+  - name: oraclelinux-7
+    driver:
+      image: dokken/oraclelinux-7
+      pid_one_command: /usr/lib/systemd/systemd
+
+  - name: oraclelinux-8
+    driver:
+      image: dokken/oraclelinux-8
+      pid_one_command: /usr/lib/systemd/systemd
+
+  - name: ubuntu-18.04
+    driver:
+      image: dokken/ubuntu-18.04
+      pid_one_command: /bin/systemd
+      intermediate_instructions:
+        - RUN /usr/bin/apt-get update
+
+  - name: ubuntu-20.04
+    driver:
+      image: dokken/ubuntu-20.04
+      pid_one_command: /bin/systemd
+      intermediate_instructions:
+        - RUN /usr/bin/apt-get update
 
 suites:
   - name: client

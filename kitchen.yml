@@ -12,11 +12,13 @@ verifier:
 
 platforms:
   - name: ubuntu-18.04
-    driver:
-      box: ubuntu/bionic64
-  - name: ubuntu-19.10
-    driver:
-      box: ubuntu/eoan64
+    lifecycle:
+      pre_converge:
+        - remote: sudo apt-get update -y
+  - name: ubuntu-20.04
+    lifecycle:
+      pre_converge:
+        - remote: sudo apt-get update -y
   - name: centos-7
   - name: centos-8
 
