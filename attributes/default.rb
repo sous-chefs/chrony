@@ -54,13 +54,13 @@ default['chrony']['systemd']['Service']['ProtectHome'] = 'yes'
 default['chrony']['systemd']['Service']['ProtectSystem'] = 'full'
 
 # these are systemd configurations that are platform-specific
-case node['platform']
-when 'redhat', 'centos'
+case node['platform_family']
+when 'rhel'
   default['chrony']['systemd']['Service']['PIDFile'] = '/run/chrony/chronyd.pid'
   default['chrony']['systemd']['Service']['EnvironmentFile'] = '-/etc/sysconfig/chronyd'
   default['chrony']['systemd']['Service']['ExecStart'] = '/usr/sbin/chronyd'
   default['chrony']['systemd']['Service']['ExecStartPost'] = '/usr/libexec/chrony-helper update-daemon'
-when 'debian', 'ubuntu'
+when 'debian'
   default['chrony']['systemd']['Service']['PIDFile'] = '/run/chronyd.pid'
   default['chrony']['systemd']['Service']['EnvironmentFile'] = '-/etc/default/chrony'
   default['chrony']['systemd']['Service']['ExecStart'] = '/usr/lib/systemd/scripts/chronyd-starter.sh $DAEMON_OPTS'
