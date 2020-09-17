@@ -1,5 +1,3 @@
-# # encoding: utf-8
-
 # Inspec test for recipe chrony::default
 def systemd?
   pid_1_file = file('/proc/1/comm')
