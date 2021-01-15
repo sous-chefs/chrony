@@ -27,7 +27,7 @@ This cookbook is maintained by the Sous Chefs. The Sous Chefs are a community of
 
 ### client
 
-Configures the node to use the `chrony` application to keep the node's clock synced. If there is a node using the `chrony::master` recipe, the client will attempt to sync with it. If there is not an available master, the attribute list `['chrony'][:servers]` is used (defaults are `[0-3].debian.pool.ntp.org`). If there is a master node, the `['chrony'][:allowed]` will be set to allow for syncing with the master.
+Configures the node to use the `chrony` application to keep the node's clock synced. If there is a node using the `chrony::master` recipe, the client will attempt to sync with it, unless disabled via `['chrony']['search_masters']`. If there is not an available master, the attribute list `['chrony'][:servers]` is used (defaults are `[0-3].debian.pool.ntp.org`). If there is a master node, the `['chrony'][:allowed]` will be set to allow for syncing with the master.
 
 ### default
 

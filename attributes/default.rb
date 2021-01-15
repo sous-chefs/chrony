@@ -27,6 +27,10 @@ default['chrony']['servers'] = {
 
 default['chrony']['server_options'] = 'offline minpoll 8'
 
+# Use servers including recipe chrony::master registered in Chef server
+# to populate our servers list.
+default['chrony']['search_masters'] = true
+
 # set in the client & master recipes
 # for better security, clients that do not need to serve ntp requests to peers or other clients
 # should not have the `allow` directive in chrony.conf

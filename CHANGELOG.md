@@ -4,6 +4,8 @@ This file is used to list changes made in each version of the chrony cookbook.
 
 ## Unreleased
 
+- Conditionally search for masters
+
 ## 1.0.0 - *2021-01-21*
 
 - Sous Chefs Adoption
