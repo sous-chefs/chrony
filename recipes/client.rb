@@ -20,25 +20,9 @@
 
 package 'chrony'
 
-file '/etc/systemd/system/multi-user.target.wants/chronyd.service' do
-  action :delete
-  only_if { systemd? }
-end
-
-systemd_unit "#{chrony_service_name}.service" do
-  action %i(create enable)
-  content node['chrony']['systemd']
-  verify false
-  only_if { systemd? }
-end
-
 service 'chrony' do
   service_name chrony_service_name
   supports restart: true, status: true, reload: true
-  if systemd? && docker?
-    start_command "systemctl --no-block start #{chrony_service_name}"
-    restart_command "systemctl --no-block restart #{chrony_service_name}"
-  end
   action %i(start enable)
 end
 
