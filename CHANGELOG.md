@@ -5,6 +5,7 @@ This file is used to list changes made in each version of the chrony cookbook.
 ## Unreleased
 
 - Sous Chefs Adoption
+- Standardize helpers library
 
 ## 0.3.1 (2020-12-23)
 
