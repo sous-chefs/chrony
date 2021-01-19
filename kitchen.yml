@@ -4,21 +4,20 @@ driver:
 
 provisioner:
   name: chef_zero
+  enforce_idempotency: true
+  multiple_converge: 2
   deprecations_as_errors: true
-  chef_license: accept-no-persist
 
 verifier:
   name: inspec
 
 platforms:
-  - name: ubuntu-18.04
-    driver:
-      box: ubuntu/bionic64
-  - name: ubuntu-19.10
-    driver:
-      box: ubuntu/eoan64
   - name: centos-7
   - name: centos-8
+  - name: debian-9
+  - name: debian-10
+  - name: ubuntu-18.04
+  - name: ubuntu-20.04
 
 suites:
   - name: client

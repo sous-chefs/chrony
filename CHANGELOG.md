@@ -2,6 +2,10 @@
 
 This file is used to list changes made in each version of the chrony cookbook.
 
+## Unreleased
+
+- Sous Chefs Adoption
+
 ## 0.3.1 (2020-12-23)
 
 - Minor updates to the kitchen files and metadata.rb source fix - [@tas50](https://github.com/tas50)
