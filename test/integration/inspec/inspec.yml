@@ -1,0 +1,5 @@
+---
+name: chrony
+inputs:
+  - name: type
+    value: "client"

@@ -10,6 +10,8 @@ provisioner:
 
 verifier:
   name: inspec
+  inspec_tests:
+    - path: test/integration/inspec
 
 platforms:
   - name: centos-7
@@ -25,12 +27,10 @@ suites:
       - recipe[test]
       - recipe[chrony::client]
     verifier:
-      inspec_tests:
-        - test/integration/inspec/client_test.rb
   - name: master
     run_list:
       - recipe[test]
       - recipe[chrony::master]
     verifier:
-      inspec_tests:
-        - test/integration/inspec/master_test.rb
+      inputs:
+        type: "master"
