@@ -32,8 +32,5 @@ default['chrony']['server_options'] = 'offline minpoll 8'
 # See https://chrony.tuxfamily.org/faq.html#_how_can_i_make_code_chronyd_code_more_secure
 default['chrony']['allow'] = []
 
-# set in the client & master recipes
-default['chrony']['initslewstep'] = ''
-
 default['chrony']['log_dir'] = '/var/log/chrony'
 default['chrony']['driftfile'] = '/var/lib/chrony/drift'

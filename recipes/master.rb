@@ -30,23 +30,6 @@ end
 # set the allowed hosts to the class B
 # node['chrony'][:allow] = ["allow #{ip[0]}.#{ip[1]}"]
 
-# if there are NTP servers, use the first 3 for the initslew
-if node['chrony']['servers'].empty?
-  clients = search(:node, 'recipes:chrony\:\:client').sort || []
-  unless clients.empty?
-    node.default['chrony']['initslewstep'] = 'initslewstep 10'
-    count = 3
-    count = clients.length if clients.length < count
-    count.times { |x| node.default['chrony']['initslewstep'] += " #{clients[x].ipaddress}" }
-  end
-else
-  node.default['chrony']['initslewstep'] = 'initslewstep 10'
-  keys = node['chrony']['servers'].keys.sort
-  count = 3
-  count = keys.length if keys.length < count
-  count.times { |x| node.default['chrony']['initslewstep'] += " #{keys[x]}" }
-end
-
 template 'chrony.conf' do
   path chrony_conf_file
   source 'chrony_master.conf.erb'
