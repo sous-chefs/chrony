@@ -34,3 +34,6 @@ default['chrony']['allow'] = []
 
 default['chrony']['log_dir'] = '/var/log/chrony'
 default['chrony']['driftfile'] = '/var/lib/chrony/drift'
+
+# Extra configuration values to be added directly to chrony.conf
+default['chrony']['extra_config'] = []

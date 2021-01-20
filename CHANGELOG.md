@@ -8,6 +8,7 @@ This file is used to list changes made in each version of the chrony cookbook.
 - Standardize helpers library
 - Improve testing
 - Remove unused attributes
+- Create attribute to handle custom extra configuration settings
 
 ## 0.3.1 (2020-12-23)
 

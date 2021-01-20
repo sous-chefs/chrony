@@ -26,6 +26,10 @@ suites:
     run_list:
       - recipe[test]
       - recipe[chrony::client]
+    attributes:
+      chrony:
+        extra_config:
+          - "log measurements statistics tracking"
     verifier:
   - name: master
     run_list:

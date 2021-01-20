@@ -21,5 +21,7 @@ rtcsync
 # Specify directory for log files.
 logdir <%= @log_dir %>
 
-# Select which information is logged.
-#log measurements statistics tracking
+# Extra configuration
+<% node['chrony']['extra_config'].each do |conf| -%>
+<%= conf %>
+<% end -%>

@@ -15,8 +15,10 @@ control 'chrony' do
     its('mode') { should cmp '0644' }
     if chrony_type == 'client'
       its('content') { should_not match(/allow.*/) }
+      its('content') { should match /^log measurements statistics tracking$/ }
     else
       its('content') { should match(/allow.*/) }
+      its('content') { should_not match /^log measurements statistics tracking$/ }
     end
   end
 end
