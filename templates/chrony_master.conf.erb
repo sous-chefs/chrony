@@ -16,24 +16,8 @@ makestep 1 3
 # Enable kernel synchronization of the real-time clock (RTC).
 rtcsync
 
-# Enable hardware timestamping on all interfaces that support it.
-#hwtimestamp *
-
-# Increase the minimum number of selectable sources required to adjust
-# the system clock.
-#minsources 2
-
-# Serve time even if not synchronized to a time source.
-#local stratum 10
-
-# Specify file containing keys for NTP authentication.
-#keyfile /etc/chrony.keys
-
 # Specify directory for log files.
 logdir <%= @log_dir %>
-
-# Select which information is logged.
-#log measurements statistics tracking
 
 # The allow directive is used to designate a particular subnet from which NTP clients
 # are allowed to access the computer as an NTP server. The default is that no clients
@@ -46,3 +30,8 @@ allow
 allow <%= allowed %>
 <% end %>
 <% end %>
+
+# Extra configuration
+<% node['chrony']['extra_config'].each do |conf| -%>
+<%= conf %>
+<% end -%>

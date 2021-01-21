@@ -1,9 +1,11 @@
 #
 # Author:: Matt Ray <matt@@chef.io>
 # Contributor:: Dang H. Nguyen <dang.nguyen@disney.com>
+# Contributor:: Lance Albertson <lance@osuosl.org>
 # Cookbook:: chrony
 # Recipe:: client
 # Copyright:: 2011-2020, Chef Software, Inc.
+# Copyright:: 2020, Sous Chefs
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -20,25 +22,9 @@
 
 package 'chrony'
 
-file '/etc/systemd/system/multi-user.target.wants/chronyd.service' do
-  action :delete
-  only_if { systemd? }
-end
-
-systemd_unit "#{chrony_service_name}.service" do
-  action %i(create enable)
-  content node['chrony']['systemd']
-  verify false
-  only_if { systemd? }
-end
-
 service 'chrony' do
   service_name chrony_service_name
   supports restart: true, status: true, reload: true
-  if systemd? && docker?
-    start_command "systemctl --no-block start #{chrony_service_name}"
-    restart_command "systemctl --no-block restart #{chrony_service_name}"
-  end
   action %i(start enable)
 end
 
@@ -52,8 +38,6 @@ else
   masters.each do |master|
     node.default['chrony']['servers'][master['ipaddress']] = master['chrony']['server_options']
     node.default['chrony']['allow'].push "allow #{master['ipaddress']}"
-    # only use 1 server to sync initslewstep
-    node.default['chrony']['initslewstep'] = "initslewstep 20 #{master['ipaddress']}"
   end
 end
 

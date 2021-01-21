@@ -3,7 +3,10 @@
 # Spec:: client
 #
 # Author: Dang H. Nguyen <dang.nguyen@disney.com>
+# Contributor:: Lance Albertson <lance@osuosl.org>
+#
 # Copyright:: 2020, The Walt Disney Company, All Rights Reserved
+# Copyright:: 2020, Sous Chefs
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -22,11 +25,8 @@ require 'spec_helper'
 
 describe 'chrony::master' do
   context 'on Ubuntu 18.04' do
-    let(:chef_run) do
-      ChefSpec::ServerRunner.new(platform: 'ubuntu', version: '18.04') do
-        allow_any_instance_of(Chef::Recipe).to receive(:systemd?).and_return(false)
-        allow_any_instance_of(Chef::Resource).to receive(:systemd?).and_return(false)
-      end.converge(described_recipe)
+    cached(:chef_run) do
+      ChefSpec::ServerRunner.new(platform: 'ubuntu', version: '18.04').converge(described_recipe)
     end
 
     it_behaves_like 'chrony client'
@@ -38,11 +38,8 @@ describe 'chrony::master' do
   end
 
   context 'on CentOS 7' do
-    let(:chef_run) do
-      ChefSpec::ServerRunner.new(platform: 'centos', version: '7') do
-        allow_any_instance_of(Chef::Recipe).to receive(:systemd?).and_return(true)
-        allow_any_instance_of(Chef::Resource).to receive(:systemd?).and_return(true)
-      end.converge(described_recipe)
+    cached(:chef_run) do
+      ChefSpec::ServerRunner.new(platform: 'centos', version: '7').converge(described_recipe)
     end
 
     it_behaves_like 'chrony client'

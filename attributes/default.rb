@@ -1,9 +1,11 @@
 #
 # Author:: Matt Ray <matt@@chef.io>
 # Contributor:: Dang H. Nguyen <dang.nguyen@disney.com>
+# Contributor:: Lance Albertson <lance@osuosl.org>
 # Cookbook:: chrony
 # Attributes:: default
 # Copyright:: 2011-2020, Chef Software, Inc.
+# Copyright:: 2020, Sous Chefs
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -32,42 +34,8 @@ default['chrony']['server_options'] = 'offline minpoll 8'
 # See https://chrony.tuxfamily.org/faq.html#_how_can_i_make_code_chronyd_code_more_secure
 default['chrony']['allow'] = []
 
-# set in the client & master recipes
-default['chrony']['initslewstep'] = ''
-
 default['chrony']['log_dir'] = '/var/log/chrony'
 default['chrony']['driftfile'] = '/var/lib/chrony/drift'
-default['chrony']['daemon_user'] = platform_family?('rhel') ? 'chrony' : '_chrony'
 
-default['chrony']['systemd']['Unit'] = {
-  'Description' => 'NTP client/server',
-  'Documentation' => 'man:chronyd(8) man:chrony.conf(5)',
-  'After' => 'ntpdate.service sntp.service ntpd.service',
-  'Conflicts' => 'ntpd.service systemd-timesyncd.service',
-  'ConditionCapability' => 'CAP_SYS_TIME',
-}
-
-# these are systemd settings that apply to all linux platforms
-default['chrony']['systemd']['Service']['Type'] = 'forking'
-default['chrony']['systemd']['Service']['PrivateTmp'] = 'yes'
-default['chrony']['systemd']['Service']['ProtectHome'] = 'yes'
-default['chrony']['systemd']['Service']['ProtectSystem'] = 'full'
-
-# these are systemd configurations that are platform-specific
-case node['platform_family']
-when 'rhel'
-  default['chrony']['systemd']['Service']['PIDFile'] = '/run/chrony/chronyd.pid'
-  default['chrony']['systemd']['Service']['EnvironmentFile'] = '-/etc/sysconfig/chronyd'
-  default['chrony']['systemd']['Service']['ExecStart'] = '/usr/sbin/chronyd'
-  default['chrony']['systemd']['Service']['ExecStartPost'] = '/usr/libexec/chrony-helper update-daemon'
-when 'debian'
-  default['chrony']['systemd']['Service']['PIDFile'] = '/run/chronyd.pid'
-  default['chrony']['systemd']['Service']['EnvironmentFile'] = '-/etc/default/chrony'
-  default['chrony']['systemd']['Service']['ExecStart'] = '/usr/lib/systemd/scripts/chronyd-starter.sh $DAEMON_OPTS'
-  default['chrony']['systemd']['Service']['ExecStartPost'] = '-/usr/lib/chrony/chrony-helper update-daemon'
-end
-
-default['chrony']['systemd']['Install'] = {
-  'Alias' => 'chrony.service',
-  'WantedBy' => 'multi-user.target',
-}
+# Extra configuration values to be added directly to chrony.conf
+default['chrony']['extra_config'] = []
