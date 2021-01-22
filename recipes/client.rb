@@ -30,7 +30,8 @@ end
 
 # search for the chrony master(s), if found populate the template accordingly
 # typical deployment will only have 1 master, but still allow for multiple
-masters = search(:node, 'recipes:chrony\:\:master') || []
+masters = search(:node, 'recipes:chrony\:\:master') if node['chrony']['search_masters']
+masters ||= []
 if masters.empty?
   Chef::Log.info("No chrony master(s) found, using node['chrony']['servers'] attribute.")
 else
