@@ -2,7 +2,7 @@
 
 This file is used to list changes made in each version of the chrony cookbook.
 
-## Unreleased
+## 1.1.0 - *2021-01-22*
 
 - Conditionally search for masters
 
