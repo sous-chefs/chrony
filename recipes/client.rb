@@ -22,12 +22,6 @@
 
 package 'chrony'
 
-service 'chrony' do
-  service_name chrony_service_name
-  supports restart: true, status: true, reload: true
-  action %i(start enable)
-end
-
 # search for the chrony master(s), if found populate the template accordingly
 # typical deployment will only have 1 master, but still allow for multiple
 masters = search(:node, 'recipes:chrony\:\:master') if node['chrony']['search_masters']
@@ -51,5 +45,11 @@ template 'chrony.conf' do
   variables driftfile: node['chrony']['driftfile'],
             log_dir: node['chrony']['log_dir'],
             servers: node['chrony']['servers']
-  notifies :restart, 'service[chrony]'
+  notifies :restart, 'service[chrony]', :delayed
+end
+
+service 'chrony' do
+  service_name chrony_service_name
+  supports restart: true, status: true, reload: true
+  action %i(start enable)
 end

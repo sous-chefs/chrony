@@ -4,6 +4,8 @@ This file is used to list changes made in each version of the chrony cookbook.
 
 ## Unreleased
 
+- Reorder resources so Chrony is configured before it is started.
+
 ## 1.1.2 - *2021-08-31*
 
 - Standardise files with files in sous-chefs/repo-management
