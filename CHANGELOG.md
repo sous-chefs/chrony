@@ -2,7 +2,7 @@
 
 This file is used to list changes made in each version of the chrony cookbook.
 
-## Unreleased
+## 1.1.3 - *2021-11-17*
 
 - Add missing yamllint and mdl checks to CI
 
