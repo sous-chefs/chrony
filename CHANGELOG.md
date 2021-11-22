@@ -4,6 +4,8 @@ This file is used to list changes made in each version of the chrony cookbook.
 
 ## Unreleased
 
+- Reorder resources so Chrony is configured before it is started.
+
 ## 1.1.3 - *2021-11-17*
 
 - Add missing yamllint and mdl checks to CI
