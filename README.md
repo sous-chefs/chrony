@@ -36,6 +36,7 @@ The default recipe passes through to the client recipe.
 ### master
 
 The node will use the `chrony` application to provide time to nodes using the `chrony::client` recipe. The master sets its own time against the attribute list `['chrony'][:servers]` (defaults are `[0-3].debian.pool.ntp.org`). Access to this master is restricted by the `['chrony'][:allowed]` attribute set in the recipe (default is to the `x.y.*` subnet).
+
 ## Usage
 
 Nodes using the `chrony::client` recipe will attempt to sync time with nodes using the `chrony::master` recipe. If there are no `chrony::master` nodes found, the contents of the attribute list `['chrony'][:servers]` are used (defaults are `[0-3].debian.pool.ntp.org`).
