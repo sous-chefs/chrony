@@ -4,6 +4,8 @@ This file is used to list changes made in each version of the chrony cookbook.
 
 ## Unreleased
 
+- Remove delivery folder
+
 ## 1.2.0 - *2021-11-22*
 
 - Reorder resources so Chrony is configured before it is started.
