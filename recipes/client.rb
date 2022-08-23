@@ -42,7 +42,8 @@ template 'chrony.conf' do
   owner 'root'
   group 'root'
   mode '0644'
-  variables driftfile: node['chrony']['driftfile'],
+  variables allow: node['chrony']['allow'],
+            driftfile: node['chrony']['driftfile'],
             log_dir: node['chrony']['log_dir'],
             servers: node['chrony']['servers']
   notifies :restart, 'service[chrony]', :delayed
