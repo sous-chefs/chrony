@@ -21,6 +21,15 @@ rtcsync
 # Specify directory for log files.
 logdir <%= @log_dir %>
 
+# The allow directive is used to designate a particular subnet from which clients
+# are allowed to access chrony. As a client option this can be used for accessing the the
+# NTP interface to query status information.
+<% if @allow %>
+<%    @allow.each do |allowed| %>
+allow <%= allowed %>
+<%    end %>
+<% end %>
+
 # Extra configuration
 <% node['chrony']['extra_config'].each do |conf| -%>
 <%= conf %>
