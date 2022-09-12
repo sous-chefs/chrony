@@ -2,7 +2,7 @@
 
 This file is used to list changes made in each version of the chrony cookbook.
 
-## Unreleased
+## 1.2.1 - *2022-09-12*
 
 - Remove delivery folder
 - Fix issue with setting allow list in client recipe
