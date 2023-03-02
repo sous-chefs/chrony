@@ -2,6 +2,12 @@
 
 This file is used to list changes made in each version of the chrony cookbook.
 
+## Unreleased
+
+- Remove delivery workflow
+- Add reusable workflow
+- Add Markdownlint-cli2
+
 ## 1.2.1 - *2022-09-12*
 
 - Remove delivery folder
