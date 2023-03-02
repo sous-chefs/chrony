@@ -2,7 +2,7 @@
 
 This file is used to list changes made in each version of the chrony cookbook.
 
-## Unreleased
+## 1.2.3 - *2023-03-02*
 
 - Remove delivery workflow
 - Add reusable workflow
