@@ -32,7 +32,7 @@ else
   node.default['chrony']['servers'] = {}
   masters.each do |master|
     node.default['chrony']['servers'][master['ipaddress']] = master['chrony']['server_options']
-    node.default['chrony']['allow'].push "allow #{master['ipaddress']}"
+    node.default['chrony']['allow'].push master['ipaddress']
   end
 end
 
