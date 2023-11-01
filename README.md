@@ -42,6 +42,7 @@ The node will use the `chrony` application to provide time to nodes using the `c
 Nodes using the `chrony::client` recipe will attempt to sync time with nodes using the `chrony::master` recipe. If there are no `chrony::master` nodes found, the contents of the attribute list `['chrony'][:servers]` are used (defaults are `[0-3].debian.pool.ntp.org`).
 
 The current configurations are supported:
+
 1) Clients with direct NTP server access
 2) A master with direct NTP server access with clients pointing to it
 
