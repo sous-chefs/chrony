@@ -21,10 +21,14 @@
 #
 
 # servers to add in chrony.conf - empty so that role/environment can define a fresh set.
-#  - Is a hash with key as the server, and the value options. e.g.
-# default['chrony']['servers'] = {
-#   'ntp1.example.com' => 'iburst',
-#   'ntp2.example.com' => 'iburst'
+#  - Is a hash with the key as the server, and the value as the server options. e.g. role JSON:
+# "default_attributes" : {
+#   "chrony": {
+#     "servers": {
+#       "ntp1.example.com" => "iburst",
+#       "ntp2.example.com" => "iburst"
+#     }
+#   }
 # }
 default['chrony']['servers'] = {}
 
