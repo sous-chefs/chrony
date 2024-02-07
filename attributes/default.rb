@@ -20,10 +20,17 @@
 # limitations under the License.
 #
 
-# hash of default servers in the chrony.conf from Ubuntu
-default['chrony']['servers'] = {
- 'pool.ntp.org' => 'iburst',
-}
+# servers to add in chrony.conf - empty so that role/environment can define a fresh set.
+#  - Is a hash with the key as the server, and the value as the server options. e.g. role JSON:
+# "default_attributes" : {
+#   "chrony": {
+#     "servers": {
+#       "ntp1.example.com" => "iburst",
+#       "ntp2.example.com" => "iburst"
+#     }
+#   }
+# }
+default['chrony']['servers'] = {}
 
 default['chrony']['server_options'] = 'offline minpoll 8'
 
