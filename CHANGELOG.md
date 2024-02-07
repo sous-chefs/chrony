@@ -49,7 +49,7 @@ This file is used to list changes made in each version of the chrony cookbook.
 
 - Minor updates to the kitchen files and metadata.rb source fix - [@tas50](https://github.com/tas50)
 - Use platform_family so we also support RHEL-like platforms like Oracle Linux - [@gsreynolds](https://github.com/gsreynolds)
-- Cookstyle Bot Auto Corrections with Cookstyle 6.18.8 - [@cookstyle](https://github.com/cookstyle)
+- Cookstyle Bot Auto Corrections with Cookstyle 6.18.8 - [@cookstyle](https://github.com/chef/cookstyle)
 
 ## 0.3.0 (2020-02-10
 

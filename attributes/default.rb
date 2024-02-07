@@ -26,7 +26,7 @@
 #   'ntp1.example.com' => 'iburst',
 #   'ntp2.example.com' => 'iburst'
 # }
-default['chrony']['servers'] = { }
+default['chrony']['servers'] = {}
 
 default['chrony']['server_options'] = 'offline minpoll 8'
 
