@@ -4,6 +4,8 @@ This file is used to list changes made in each version of the chrony cookbook.
 
 ## Unreleased
 
+- Removed default['chrony']['servers'] content - to allow it to be overridden by role/environment.
+
 ## 1.2.3 - *2023-03-02*
 
 - Remove delivery workflow
