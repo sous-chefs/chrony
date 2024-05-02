@@ -2,6 +2,8 @@
 
 This file is used to list changes made in each version of the chrony cookbook.
 
+## Unreleased
+
 ## 1.2.5 - *2024-05-02*
 
 ## 1.2.4 - *2024-05-02*
