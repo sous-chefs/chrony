@@ -24,6 +24,7 @@
 require 'spec_helper'
 
 describe 'chrony::master' do
+  override_attributes['chrony']['servers'] = { 'pool.ntp.org' => 'iburst' }
   context 'on Ubuntu 18.04' do
     cached(:chef_run) do
       ChefSpec::ServerRunner.new(platform: 'ubuntu', version: '18.04').converge(described_recipe)
