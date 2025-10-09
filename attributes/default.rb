@@ -22,7 +22,7 @@
 
 # hash of default servers in the chrony.conf from Ubuntu
 default['chrony']['servers'] = {
- 'pool.ntp.org' => 'iburst',
+  'pool.ntp.org' => 'iburst',
 }
 
 default['chrony']['server_options'] = 'offline minpoll 8'
