@@ -2,6 +2,13 @@
 
 This file is used to list changes made in each version of the chrony cookbook.
 
+## [1.2.7](https://github.com/sous-chefs/chrony/compare/1.2.6...v1.2.7) (2025-10-15)
+
+
+### Bug Fixes
+
+* **ci:** Update workflows to use release pipeline ([#65](https://github.com/sous-chefs/chrony/issues/65)) ([74bfaa6](https://github.com/sous-chefs/chrony/commit/74bfaa69a069001afa820ea9c360c55199649c55))
+
 ## 1.2.6 - *2025-09-04*
 
 ## 1.2.5 - *2024-05-02*
