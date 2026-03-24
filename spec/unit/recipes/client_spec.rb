@@ -2,10 +2,6 @@
 # Cookbook:: chrony
 # Spec:: client
 #
-# Author: Dang H. Nguyen <dang.nguyen@disney.com>
-# Contributor:: Lance Albertson <lance@osuosl.org>
-#
-# Copyright:: 2020, The Walt Disney Company, All Rights Reserved
 # Copyright:: 2020, Sous Chefs
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -23,29 +19,25 @@
 require 'spec_helper'
 
 describe 'chrony::client' do
-  context 'on Ubuntu 18.04' do
+  context 'on Ubuntu 22.04' do
     cached(:chef_run) do
-      ChefSpec::ServerRunner.new(platform: 'ubuntu', version: '18.04').converge(described_recipe)
+      ChefSpec::ServerRunner.new(platform: 'ubuntu', version: '22.04').converge(described_recipe)
     end
 
-    it_behaves_like 'chrony client'
-
-    it 'rendered /etc/chrony.conf' do
-      expect(chef_run).to render_file('/etc/chrony/chrony.conf').with_content(/pool pool.ntp.org iburst/)
+    it 'rendered /etc/chrony/chrony.conf' do
+      expect(chef_run).to render_file('/etc/chrony/chrony.conf').with_content(/server pool.ntp.org iburst/)
       expect(chef_run).to_not render_file('/etc/chrony/chrony.conf').with_content('allow')
     end
   end
 
-  context 'on CentOS 7' do
+  context 'on AlmaLinux 9' do
     cached(:chef_run) do
-      ChefSpec::ServerRunner.new(platform: 'centos', version: '7').converge(described_recipe)
+      ChefSpec::ServerRunner.new(platform: 'almalinux', version: '9').converge(described_recipe)
     end
 
-    it_behaves_like 'chrony client'
-
     it 'rendered /etc/chrony.conf' do
-      expect(chef_run).to render_file('/etc/chrony.conf').with_content(/pool pool.ntp.org iburst/)
-      expect(chef_run).to_not render_file('/etc/chrony/chrony.conf').with_content('allow')
+      expect(chef_run).to render_file('/etc/chrony.conf').with_content(/server pool.ntp.org iburst/)
+      expect(chef_run).to_not render_file('/etc/chrony.conf').with_content('allow')
     end
   end
 end

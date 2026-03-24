@@ -22,16 +22,16 @@
 
 # hash of default servers in the chrony.conf from Ubuntu
 default['chrony']['servers'] = {
- 'pool.ntp.org' => 'iburst',
+  'pool.ntp.org' => 'iburst',
 }
 
 default['chrony']['server_options'] = 'offline minpoll 8'
 
-# Use servers including recipe chrony::master registered in Chef server
+# Use servers including recipe chrony::server registered in Chef server
 # to populate our servers list.
-default['chrony']['search_masters'] = true
+default['chrony']['search_servers'] = true
 
-# set in the client & master recipes
+# set in the client & server recipes
 # for better security, clients that do not need to serve ntp requests to peers or other clients
 # should not have the `allow` directive in chrony.conf
 # In this case, an empty array is the correct setting

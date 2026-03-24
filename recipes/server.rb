@@ -1,6 +1,6 @@
 #
 # Cookbook:: chrony
-# Recipe:: client
+# Recipe:: server
 #
 # Copyright:: 2020, Sous Chefs
 #
@@ -17,20 +17,9 @@
 # limitations under the License.
 #
 
-servers = node['chrony']['servers'].dup
-allow = node['chrony']['allow'].dup
-
-if node['chrony']['search_servers']
-  servers_list = search(:node, 'recipes:chrony\:\:server')
-  servers_list.each do |server|
-    servers[server['ipaddress']] = node['chrony']['server_options']
-    allow.push(server['ipaddress'])
-  end
-end
-
-chrony_config 'default' do
-  servers servers
-  allow allow
+chrony_config 'server' do
+  servers node['chrony']['servers']
+  allow node['chrony']['allow']
   driftfile node['chrony']['driftfile']
   log_dir node['chrony']['log_dir']
   extra_config node['chrony']['extra_config']
