@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 #
 # Cookbook:: chrony
 # Resource:: config
@@ -17,6 +18,7 @@
 # limitations under the License.
 #
 unified_mode true
+provides :chrony_config
 
 property :servers, Hash, default: { 'pool.ntp.org' => 'iburst' }
 property :pools, Hash, default: {}

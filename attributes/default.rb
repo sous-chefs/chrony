@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 #
 # Author:: Matt Ray <matt@@chef.io>
 # Contributor:: Dang H. Nguyen <dang.nguyen@disney.com>
