@@ -1,0 +1,7 @@
+---
+name: server
+title: Chrony server configuration
+maintainer: Sous Chefs
+license: Apache-2.0
+summary: Verifies chrony is installed and configured as a server
+version: 1.0.0

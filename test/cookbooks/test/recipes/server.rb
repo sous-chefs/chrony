@@ -4,6 +4,6 @@ apt_update
 
 directory '/var/run/chrony' if platform_family?('rhel', 'fedora', 'amazon')
 
-chrony_config 'default' do
-  extra_config ['log measurements statistics tracking']
+chrony_config 'server' do
+  allow ['10.0.0.0/8']
 end

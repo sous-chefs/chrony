@@ -24,7 +24,9 @@ property :servers, Hash, default: { 'pool.ntp.org' => 'iburst' }
 property :pools, Hash, default: {}
 property :allow, Array, default: []
 property :deny, Array, default: []
-property :driftfile, String, default: lazy { default_driftfile }
+property :driftfile, String, default: lazy {
+  platform_family?('rhel', 'fedora', 'amazon') ? '/var/lib/chrony/drift' : '/var/lib/chrony/chrony.drift'
+}
 property :log_dir, String, default: '/var/log/chrony'
 property :extra_config, Array, default: []
 
@@ -71,12 +73,4 @@ end
 
 action_class do
   include Chrony::Cookbook::Helpers
-
-  def default_driftfile
-    if platform_family?('rhel', 'fedora', 'amazon')
-      '/var/lib/chrony/drift'
-    else
-      '/var/lib/chrony/chrony.drift'
-    end
-  end
 end

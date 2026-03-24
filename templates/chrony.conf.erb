@@ -24,9 +24,6 @@ deny <%= deny %>
 <%= config %>
 <% end -%>
 
-# Record the rate at which the system clock gains/losses time.
-driftfile <%= @driftfile %>
-
 # Allow the system clock to be stepped in the first three updates
 # if its offset is larger than 1 second.
 makestep 1.0 3

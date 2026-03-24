@@ -25,12 +25,15 @@ jobs:
         os:
           - "almalinux-9"
           - "amazonlinux-2023"
+          - "centos-stream-9"
           - "debian-12"
-          - "rocky-9"
+          - "fedora-latest"
+          - "oraclelinux-9"
+          - "rockylinux-9"
           - "ubuntu-22.04"
           - "ubuntu-24.04"
         suite:
-          - "client"
+          - "default"
           - "server"
       fail-fast: false
 

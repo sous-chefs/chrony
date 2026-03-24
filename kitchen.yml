@@ -10,31 +10,28 @@ provisioner:
 
 verifier:
   name: inspec
-  inspec_tests:
-    - path: test/integration/inspec
 
 platforms:
   - name: almalinux-9
   - name: amazonlinux-2023
+  - name: centos-stream-9
   - name: debian-12
-  - name: rocky-9
+  - name: fedora-latest
+  - name: oraclelinux-9
+  - name: rockylinux-9
   - name: ubuntu-22.04
   - name: ubuntu-24.04
 
 suites:
-  - name: client
+  - name: default
     run_list:
-      - recipe[test]
-      - recipe[chrony::client]
-    attributes:
-      chrony:
-        extra_config:
-          - "log measurements statistics tracking"
+      - recipe[test::default]
     verifier:
+      inspec_tests:
+        - path: test/integration/default
   - name: server
     run_list:
-      - recipe[test]
-      - recipe[chrony::server]
+      - recipe[test::server]
     verifier:
-      inputs:
-        type: "server"
+      inspec_tests:
+        - path: test/integration/server
