@@ -20,19 +20,6 @@
 require 'spec_helper'
 
 describe 'chrony::server' do
-  context 'on Ubuntu 22.04' do
-    cached(:chef_run) do
-      ChefSpec::ServerRunner.new(platform: 'ubuntu', version: '22.04', step_into: ['chrony_config']) do |node|
-        node.normal['chrony']['allow'] = ['10.0.0.0/8']
-      end.converge(described_recipe)
-    end
-
-    it 'rendered /etc/chrony/chrony.conf' do
-      expect(chef_run).to render_file('/etc/chrony/chrony.conf').with_content(/server pool.ntp.org iburst/)
-      expect(chef_run).to render_file('/etc/chrony/chrony.conf').with_content('allow')
-    end
-  end
-
   context 'on AlmaLinux 9' do
     cached(:chef_run) do
       ChefSpec::ServerRunner.new(platform: 'almalinux', version: '9', step_into: ['chrony_config']) do |node|

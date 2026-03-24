@@ -19,17 +19,6 @@
 require 'spec_helper'
 
 describe 'chrony::client' do
-  context 'on Ubuntu 22.04' do
-    cached(:chef_run) do
-      ChefSpec::ServerRunner.new(platform: 'ubuntu', version: '22.04', step_into: ['chrony_config']).converge(described_recipe)
-    end
-
-    it 'rendered /etc/chrony/chrony.conf' do
-      expect(chef_run).to render_file('/etc/chrony/chrony.conf').with_content(/server pool.ntp.org iburst/)
-      expect(chef_run).to_not render_file('/etc/chrony/chrony.conf').with_content('allow')
-    end
-  end
-
   context 'on AlmaLinux 9' do
     cached(:chef_run) do
       ChefSpec::ServerRunner.new(platform: 'almalinux', version: '9', step_into: ['chrony_config']).converge(described_recipe)

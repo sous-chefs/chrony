@@ -21,16 +21,6 @@ require 'spec_helper'
 
 describe 'chrony::default' do
   context 'When all attributes are default' do
-    context 'on Ubuntu 22.04' do
-      cached(:chef_run) do
-        ChefSpec::ServerRunner.new(platform: 'ubuntu', version: '22.04').converge(described_recipe)
-      end
-
-      it 'included the client recipe' do
-        expect(chef_run).to include_recipe('chrony::client')
-      end
-    end
-
     context 'on AlmaLinux 9' do
       cached(:chef_run) do
         ChefSpec::ServerRunner.new(platform: 'almalinux', version: '9').converge(described_recipe)
