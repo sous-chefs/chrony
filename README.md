@@ -10,7 +10,7 @@ Configures the time synchronization application `chrony` as a client or server t
 
 ## Maintainers
 
-This cookbook is maintained by the Sous Chefs. The Sous Chefs are a community of Chef cookbook maintainers working together to maintain important cookbooks. If you’d like to know more please visit [sous-chefs.org](https://sous-chefs.org/) or come chat with us on the Chef Community Slack in [#sous-chefs](https://chefcommunity.slack.com/messages/C2V7B88SF).
+This cookbook is maintained by the Sous Chefs. The Sous Chefs are a community of Chef cookbook maintainers working together to maintain important cookbooks. If you'd like to know more please visit [sous-chefs.org](https://sous-chefs.org/) or come chat with us on the Chef Community Slack in [#sous-chefs](https://chefcommunity.slack.com/messages/C2V7B88SF).
 
 ## Requirements
 
@@ -34,20 +34,20 @@ This cookbook provides the `chrony_config` custom resource. See [documentation/c
 ## Usage
 
 ```ruby
-chrony_config ‘default’ do
-  servers({ ‘pool.ntp.org’ => ‘iburst’ })
+chrony_config 'default' do
+  servers({ 'pool.ntp.org' => 'iburst' })
 end
 ```
 
 ### Server configuration
 
 ```ruby
-chrony_config ‘server’ do
+chrony_config 'server' do
   servers({
-    ‘ntp1.example.com’ => ‘iburst’,
-    ‘ntp2.example.com’ => ‘iburst’,
+    'ntp1.example.com' => 'iburst',
+    'ntp2.example.com' => 'iburst',
   })
-  allow [‘192.168.1.0/24’]
+  allow ['192.168.1.0/24']
 end
 ```
 

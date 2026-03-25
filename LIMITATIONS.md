@@ -1,36 +1,28 @@
-# Chrony Cookbook Limitations
-
-## Supported Platforms
-
-The `chrony` cookbook supports the following Linux distributions:
-
-- **RHEL / Rocky / AlmaLinux**: 9
-- **CentOS Stream**: 9
-- **Oracle Linux**: 9
-- **Ubuntu**: 22.04 (LTS), 24.04 (LTS)
-- **Debian**: 12
-- **Amazon Linux**: 2023
-- **Fedora**: Latest stable
+# Limitations
 
 ## Package Availability
 
-Chrony is available as a native package on all supported platforms:
+### APT (Debian/Ubuntu)
 
-- **Debian/Ubuntu**: `apt install chrony`
-- **RHEL/CentOS/Rocky/Alma/Oracle/Fedora/Amazon**: `dnf install chrony`
+- Debian 12: `chrony` is available from the standard Debian 12 repositories for amd64, arm64, armel, armhf, i386, mips64el, ppc64el, riscv64, and s390x.
+- Ubuntu 22.04 and 24.04: `chrony` is available from the standard Ubuntu repositories for amd64, arm64, armhf, ppc64el, riscv64, and s390x.
 
-No source compilation is required.
+### DNF/YUM (RHEL family)
 
-## Architecture Support
+- RHEL 9, AlmaLinux 9, Rocky Linux 9, Oracle Linux 9, and CentOS Stream 9 provide `chrony` from their standard repositories.
+- Amazon Linux 2023 provides `chrony` from the standard `dnf` repositories.
+- Fedora latest provides `chrony` from the standard Fedora repositories.
 
-- x86_64
-- aarch64 (ARM64)
+## Architecture Limitations
 
-## Migration from Recipes
+- No cookbook-specific architecture restriction is currently known for supported platforms.
+- The common deployment targets across the tested platforms are x86_64 and aarch64.
 
-As of the current version, this cookbook no longer provides `chrony::client` or `chrony::server`
-recipes. Use the `chrony_config` custom resource directly in your wrapper cookbooks.
+## Source/Compiled Installation
 
-Users who previously relied on the Chef search feature in `chrony::client` (auto-discovering
-nodes with `chrony::server` in their run list) must implement that logic in their own wrapper
-cookbook.
+Chrony is installed from OS packages on all supported platforms in this cookbook. No source build path is implemented or required.
+
+## Known Issues
+
+- This cookbook does not manage vendor-specific repository setup because chrony is installed from the base OS repositories on supported platforms.
+- Platform support in `metadata.rb` should stay aligned with `kitchen.yml`, `kitchen.dokken.yml`, and `kitchen.global.yml`.

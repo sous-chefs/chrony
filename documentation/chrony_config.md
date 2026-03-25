@@ -4,27 +4,42 @@ The `chrony_config` resource manages the chrony package, service, and configurat
 
 ## Actions
 
-- `:create`: (default) Installs the chrony package, configures it, and enables/starts the service.
-- `:delete`: Stops and disables the service, removes the package and configuration file.
+| Action | Description |
+|---|---|
+| `:create` | Installs the chrony package, manages the configuration file, and enables and starts the service. Default action. |
+| `:delete` | Stops and disables the service, removes the package, and deletes the configuration file. |
 
 ## Properties
 
-- `servers`: (Hash) A hash of NTP servers to use. Key is the server address, value is the options (e.g., `iburst`). Default: `{ 'pool.ntp.org' => 'iburst' }`.
-- `pools`: (Hash) A hash of NTP pools to use. Key is the pool address, value is the options. Default: `{}`.
-- `allow`: (Array) A list of addresses/subnets allowed to access the server. Default: `[]`.
-- `deny`: (Array) A list of addresses/subnets denied access to the server. Default: `[]`.
-- `driftfile`: (String) The path to the drift file. Default: Platform-specific.
-- `log_dir`: (String) The directory for chrony logs. Default: `/var/log/chrony`.
-- `extra_config`: (Array) A list of raw configuration strings to append to the config file. Default: `[]`.
+| Property | Type | Default | Description |
+|---|---|---|---|
+| `servers` | Hash | `{ 'pool.ntp.org' => 'iburst' }` | NTP servers to configure, keyed by hostname with option strings as values. |
+| `pools` | Hash | `{}` | NTP pools to configure, keyed by hostname with option strings as values. |
+| `allow` | Array | `[]` | Networks or hosts allowed to query the local chrony server. |
+| `deny` | Array | `[]` | Networks or hosts denied access to the local chrony server. |
+| `driftfile` | String | platform-specific | Drift file path. Defaults to `/var/lib/chrony/drift` on RHEL family and `/var/lib/chrony/chrony.drift` on Debian family. |
+| `log_dir` | String | `'/var/log/chrony'` | Directory used for chrony log output. |
+| `extra_config` | Array | `[]` | Raw configuration lines appended to the generated chrony configuration file. |
 
 ## Examples
 
+### Basic usage
+
 ```ruby
 chrony_config 'default' do
-  servers({
+  action :create
+end
+```
+
+### Server configuration
+
+```ruby
+chrony_config 'server' do
+  servers(
     'ntp1.example.com' => 'iburst',
-    'ntp2.example.com' => 'iburst',
-  })
+    'ntp2.example.com' => 'iburst'
+  )
   allow ['192.168.1.0/24']
+  action :create
 end
 ```
