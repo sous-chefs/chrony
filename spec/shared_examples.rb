@@ -1,14 +1,19 @@
-shared_examples 'chrony client' do
-  it 'installed chrony' do
+# frozen_string_literal: true
+
+shared_examples 'chrony_config :create' do
+  it 'installs the chrony package' do
     expect(chef_run).to install_package('chrony')
   end
 
-  it 'started and enabled the chrony(d) service' do
-    expect(chef_run).to start_service('chrony')
-    expect(chef_run).to enable_service('chrony')
+  it 'creates the chrony configuration file' do
+    expect(chef_run).to create_template(conf_file)
   end
 
-  it 'created chrony.conf' do
-    expect(chef_run).to create_template('chrony.conf')
+  it 'enables the chrony service' do
+    expect(chef_run).to enable_service(service_name)
+  end
+
+  it 'starts the chrony service' do
+    expect(chef_run).to start_service(service_name)
   end
 end

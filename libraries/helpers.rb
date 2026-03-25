@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 #
 # Cookbook:: chrony
 # Libraries:: helpers
@@ -40,5 +41,3 @@ module Chrony
     end
   end
 end
-Chef::DSL::Recipe.include Chrony::Cookbook::Helpers
-Chef::Resource.include Chrony::Cookbook::Helpers

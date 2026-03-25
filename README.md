@@ -6,45 +6,50 @@
 [![OpenCollective](https://opencollective.com/sous-chefs/sponsors/badge.svg)](#sponsors)
 [![License](https://img.shields.io/badge/License-Apache%202.0-green.svg)](https://opensource.org/licenses/Apache-2.0)
 
-Configures the time synchronization application `chrony` as a client or master timeserver, maintaining the accuracy of the system clock (similar to NTP). Isolated networks are supported as well.
+Configures the time synchronization application `chrony` as a client or server timeserver, maintaining the accuracy of the system clock (similar to NTP).
 
 ## Maintainers
 
-This cookbook is maintained by the Sous Chefs. The Sous Chefs are a community of Chef cookbook maintainers working together to maintain important cookbooks. If you’d like to know more please visit [sous-chefs.org](https://sous-chefs.org/) or come chat with us on the Chef Community Slack in [#sous-chefs](https://chefcommunity.slack.com/messages/C2V7B88SF).
+This cookbook is maintained by the Sous Chefs. The Sous Chefs are a community of Chef cookbook maintainers working together to maintain important cookbooks. If you'd like to know more please visit [sous-chefs.org](https://sous-chefs.org/) or come chat with us on the Chef Community Slack in [#sous-chefs](https://chefcommunity.slack.com/messages/C2V7B88SF).
 
 ## Requirements
 
 ### Platforms
 
-- Debian / Ubuntu
-- CentOS / Redhat
+- Debian 12+
+- Ubuntu 22.04+
+- RHEL / AlmaLinux / Rocky / Oracle Linux 9+
+- CentOS Stream 9+
+- Amazon Linux 2023
+- Fedora (latest)
 
 ### Chef
 
-- Chef 13+
+- Chef >= 15.3
 
-## Recipes
+## Resources
 
-### client
-
-Configures the node to use the `chrony` application to keep the node's clock synced. If there is a node using the `chrony::master` recipe, the client will attempt to sync with it, unless disabled via `['chrony']['search_masters']`. If there is not an available master, the attribute list `['chrony'][:servers]` is used (defaults are `[0-3].debian.pool.ntp.org`). If there is a master node, the `['chrony'][:allowed]` will be set to allow for syncing with the master.
-
-### default
-
-The default recipe passes through to the client recipe.
-
-### master
-
-The node will use the `chrony` application to provide time to nodes using the `chrony::client` recipe. The master sets its own time against the attribute list `['chrony'][:servers]` (defaults are `[0-3].debian.pool.ntp.org`). Access to this master is restricted by the `['chrony'][:allowed]` attribute set in the recipe (default is to the `x.y.*` subnet).
+This cookbook provides the `chrony_config` custom resource. See [documentation/chrony_config.md](documentation/chrony_config.md) for full details.
 
 ## Usage
 
-Nodes using the `chrony::client` recipe will attempt to sync time with nodes using the `chrony::master` recipe. If there are no `chrony::master` nodes found, the contents of the attribute list `['chrony'][:servers]` are used (defaults are `[0-3].debian.pool.ntp.org`).
+```ruby
+chrony_config 'default' do
+  servers({ 'pool.ntp.org' => 'iburst' })
+end
+```
 
-The current configurations are supported:
+### Server configuration
 
-1) Clients with direct NTP server access
-2) A master with direct NTP server access with clients pointing to it
+```ruby
+chrony_config 'server' do
+  servers({
+    'ntp1.example.com' => 'iburst',
+    'ntp2.example.com' => 'iburst',
+  })
+  allow ['192.168.1.0/24']
+end
+```
 
 ## Contributors
 

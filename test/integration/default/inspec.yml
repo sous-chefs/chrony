@@ -1,0 +1,7 @@
+---
+name: default
+title: Chrony client configuration
+maintainer: Sous Chefs
+license: Apache-2.0
+summary: Verifies chrony is installed and configured as a client
+version: 1.0.0
