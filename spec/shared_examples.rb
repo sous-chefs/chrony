@@ -7,6 +7,11 @@ shared_examples 'chrony_config :create' do
 
   it 'creates the chrony configuration file' do
     expect(chef_run).to create_template(conf_file)
+      .with(
+        owner: 'root',
+        group: 'root',
+        mode: '0600'
+      )
   end
 
   it 'enables the chrony service' do

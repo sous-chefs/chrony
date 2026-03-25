@@ -38,7 +38,7 @@ action :create do
     cookbook 'chrony'
     owner 'root'
     group 'root'
-    mode '0644'
+    mode '0600'
     variables(
       servers: new_resource.servers,
       pools: new_resource.pools,

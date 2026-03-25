@@ -40,7 +40,7 @@ control 'chrony-server-03' do
     it { should be_file }
     its('owner') { should eq 'root' }
     its('group') { should eq 'root' }
-    its('mode') { should cmp '0644' }
+    its('mode') { should cmp '0600' }
     its('content') { should match(/^driftfile /) }
     its('content') { should match(%r{^allow 10\.0\.0\.0/8}) }
   end
