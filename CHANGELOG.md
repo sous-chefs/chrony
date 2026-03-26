@@ -2,6 +2,23 @@
 
 This file is used to list changes made in each version of the chrony cookbook.
 
+## [2.0.0](https://github.com/sous-chefs/chrony/compare/v1.2.7...v2.0.0) (2026-03-25)
+
+
+### ⚠ BREAKING CHANGES
+
+* chrony::client, chrony::server, and chrony::default recipes have been removed. Use the chrony_config resource directly in wrapper cookbooks. The Chef search feature for auto-discovering server nodes is no longer provided — implement in your own wrapper cookbook if needed.
+
+### Features
+
+* modernize chrony cookbook and refactor master to server ([#74](https://github.com/sous-chefs/chrony/issues/74)) ([283883f](https://github.com/sous-chefs/chrony/commit/283883fe5a6a09f52bc0a259d3a484bc89ecab7d))
+* set chrony.conf mode to 0600 per CIS benchmark ([#52](https://github.com/sous-chefs/chrony/issues/52)) ([5dfd931](https://github.com/sous-chefs/chrony/commit/5dfd9313b59ac4e734c631bd55694386f537b3f8))
+
+
+### Bug Fixes
+
+* **ci:** Update workflows to use release pipeline ([#65](https://github.com/sous-chefs/chrony/issues/65)) ([74bfaa6](https://github.com/sous-chefs/chrony/commit/74bfaa69a069001afa820ea9c360c55199649c55))
+
 ## [1.2.7](https://github.com/sous-chefs/chrony/compare/1.2.6...v1.2.7) (2025-10-15)
 
 
