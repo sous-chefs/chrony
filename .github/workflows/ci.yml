@@ -24,12 +24,17 @@ jobs:
       matrix:
         os:
           - "almalinux-9"
+          - "almalinux-10"
           - "amazonlinux-2023"
           - "centos-stream-9"
+          - "centos-stream-10"
           - "debian-12"
+          - "debian-13"
           - "fedora-latest"
           - "oraclelinux-9"
+          - "oraclelinux-10"
           - "rockylinux-9"
+          - "rockylinux-10"
           - "ubuntu-22.04"
           - "ubuntu-24.04"
         suite:
