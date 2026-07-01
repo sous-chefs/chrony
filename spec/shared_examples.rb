@@ -14,6 +14,15 @@ shared_examples 'chrony_config :create' do
       )
   end
 
+  it 'creates the chrony log directory' do
+    expect(chef_run).to create_directory('/var/log/chrony')
+      .with(
+        owner: chrony_user,
+        group: chrony_user,
+        mode: '0755'
+      )
+  end
+
   it 'enables the chrony service' do
     expect(chef_run).to enable_service(service_name)
   end

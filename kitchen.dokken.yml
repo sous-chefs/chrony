@@ -85,6 +85,8 @@ suites:
       inspec_tests:
         - path: test/integration/default
   - name: server
+    provisioner:
+      named_run_list: server
     run_list:
       - recipe[test::server]
     verifier:

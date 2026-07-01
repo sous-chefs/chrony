@@ -15,6 +15,7 @@ describe 'chrony_config' do
 
       let(:conf_file) { '/etc/chrony.conf' }
       let(:service_name) { 'chronyd' }
+      let(:chrony_user) { 'chrony' }
 
       include_examples 'chrony_config :create'
 
@@ -49,6 +50,7 @@ describe 'chrony_config' do
 
       let(:conf_file) { '/etc/chrony/chrony.conf' }
       let(:service_name) { 'chrony' }
+      let(:chrony_user) { '_chrony' }
 
       include_examples 'chrony_config :create'
 

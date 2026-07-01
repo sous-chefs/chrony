@@ -38,6 +38,10 @@ module Chrony
           '/etc/chrony/chrony.conf'
         end
       end
+
+      def chrony_user
+        platform_family?('debian') ? '_chrony' : 'chrony'
+      end
     end
   end
 end

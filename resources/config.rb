@@ -33,6 +33,13 @@ property :extra_config, Array, default: []
 action :create do
   package 'chrony'
 
+  directory new_resource.log_dir do
+    owner chrony_user
+    group chrony_user
+    mode '0755'
+    recursive true
+  end
+
   template chrony_conf_file do
     source 'chrony.conf.erb'
     cookbook 'chrony'
