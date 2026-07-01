@@ -18,7 +18,6 @@ platforms:
   - name: centos-stream-9
   - name: centos-stream-10
   - name: debian-12
-  - name: debian-13
   - name: fedora-latest
   - name: oraclelinux-9
   - name: oraclelinux-10
@@ -35,6 +34,8 @@ suites:
       inspec_tests:
         - path: test/integration/default
   - name: server
+    provisioner:
+      named_run_list: server
     run_list:
       - recipe[test::server]
     verifier:

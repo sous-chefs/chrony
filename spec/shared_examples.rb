@@ -9,9 +9,18 @@ shared_examples 'chrony_config :create' do
     expect(chef_run).to create_template(conf_file)
       .with(
         owner: 'root',
-        group: 'root',
-        mode: '0600'
+        group: conf_group,
+        mode: conf_mode
       )
+  end
+
+  it 'creates the chrony log directory' do
+    log_dir = chef_run.find_resource(:directory, '/var/log/chrony')
+
+    expect(log_dir.owner).to eq(chrony_user)
+    expect(log_dir.group).to eq(chrony_user)
+    expect(log_dir.mode).to eq('0755')
+    expect(log_dir.recursive).to be true
   end
 
   it 'enables the chrony service' do

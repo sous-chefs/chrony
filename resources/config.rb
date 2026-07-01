@@ -33,12 +33,20 @@ property :extra_config, Array, default: []
 action :create do
   package 'chrony'
 
+  directory new_resource.log_dir do
+    owner chrony_user
+    group chrony_user
+    mode '0755'
+    recursive true
+    not_if { ::Dir.exist?(new_resource.log_dir) }
+  end
+
   template chrony_conf_file do
     source 'chrony.conf.erb'
     cookbook 'chrony'
     owner 'root'
-    group 'root'
-    mode '0600'
+    group chrony_conf_group
+    mode chrony_conf_mode
     variables(
       servers: new_resource.servers,
       pools: new_resource.pools,
@@ -49,6 +57,14 @@ action :create do
       extra_config: new_resource.extra_config
     )
     notifies :restart, "service[#{chrony_service_name}]", :delayed
+  end
+
+  directory '/run/chrony.d' do
+    only_if { platform_family?('amazon') }
+  end
+
+  file '/run/chrony.d/.configured' do
+    only_if { platform_family?('amazon') }
   end
 
   service chrony_service_name do

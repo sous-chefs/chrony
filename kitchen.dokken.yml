@@ -1,6 +1,8 @@
 driver:
   name: dokken
   privileged: true
+  cap_add:
+    - SYS_TIME
   chef_version: <%= ENV['CHEF_VERSION'] || 'current' %>
 
 transport: { name: dokken }
@@ -35,11 +37,6 @@ platforms:
   - name: debian-12
     driver:
       image: dokken/debian-12
-      pid_one_command: /bin/systemd
-
-  - name: debian-13
-    driver:
-      image: dokken/debian-13
       pid_one_command: /bin/systemd
 
   - name: fedora-latest
@@ -85,6 +82,8 @@ suites:
       inspec_tests:
         - path: test/integration/default
   - name: server
+    provisioner:
+      named_run_list: server
     run_list:
       - recipe[test::server]
     verifier:

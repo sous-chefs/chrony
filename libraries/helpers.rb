@@ -38,6 +38,26 @@ module Chrony
           '/etc/chrony/chrony.conf'
         end
       end
+
+      def chrony_user
+        platform_family?('debian') ? '_chrony' : 'chrony'
+      end
+
+      def chrony_conf_group
+        chrony_reads_config_as_service_user? ? chrony_user : 'root'
+      end
+
+      def chrony_conf_mode
+        chrony_reads_config_as_service_user? ? '0640' : '0600'
+      end
+
+      def rhel_family_10_or_later?
+        platform_family?('rhel') && node['platform_version'].to_i >= 10
+      end
+
+      def chrony_reads_config_as_service_user?
+        rhel_family_10_or_later? || platform_family?('amazon')
+      end
     end
   end
 end
