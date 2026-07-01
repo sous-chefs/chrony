@@ -44,15 +44,19 @@ module Chrony
       end
 
       def chrony_conf_group
-        rhel_family_10_or_later? ? chrony_user : 'root'
+        chrony_reads_config_as_service_user? ? chrony_user : 'root'
       end
 
       def chrony_conf_mode
-        rhel_family_10_or_later? ? '0640' : '0600'
+        chrony_reads_config_as_service_user? ? '0640' : '0600'
       end
 
       def rhel_family_10_or_later?
         platform_family?('rhel') && node['platform_version'].to_i >= 10
+      end
+
+      def chrony_reads_config_as_service_user?
+        rhel_family_10_or_later? || platform_family?('amazon')
       end
     end
   end

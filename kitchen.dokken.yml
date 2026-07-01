@@ -1,6 +1,8 @@
 driver:
   name: dokken
   privileged: true
+  cap_add:
+    - SYS_TIME
   chef_version: <%= ENV['CHEF_VERSION'] || 'current' %>
 
 transport: { name: dokken }

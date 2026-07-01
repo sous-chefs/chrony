@@ -10,8 +10,8 @@ chrony_service = if os.redhat? || os.name == 'fedora'
                    'chrony'
                  end
 
-chrony_conf_group = os.redhat? && os.release.to_i >= 10 ? 'chrony' : 'root'
-chrony_conf_mode = os.redhat? && os.release.to_i >= 10 ? '0640' : '0600'
+chrony_conf_group = (os.redhat? && os.release.to_i >= 10) || os.name == 'amazon' ? 'chrony' : 'root'
+chrony_conf_mode = (os.redhat? && os.release.to_i >= 10) || os.name == 'amazon' ? '0640' : '0600'
 
 control 'chrony-client-01' do
   impact 1.0

@@ -2,7 +2,7 @@
 
 apt_update
 
-if platform_family?('rhel') && node['platform_version'].to_i >= 10
+if (platform_family?('rhel') && node['platform_version'].to_i >= 10) || platform_family?('amazon')
   package 'chrony'
 
   file '/etc/sysconfig/chronyd' do

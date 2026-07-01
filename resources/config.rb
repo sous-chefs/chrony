@@ -59,6 +59,14 @@ action :create do
     notifies :restart, "service[#{chrony_service_name}]", :delayed
   end
 
+  directory '/run/chrony.d' do
+    only_if { platform_family?('amazon') }
+  end
+
+  file '/run/chrony.d/.configured' do
+    only_if { platform_family?('amazon') }
+  end
+
   service chrony_service_name do
     supports restart: true, status: true, reload: true
     action [:enable, :start]
