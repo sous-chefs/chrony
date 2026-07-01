@@ -10,6 +10,9 @@ chrony_service = if os.redhat? || os.name == 'fedora'
                    'chrony'
                  end
 
+chrony_conf_group = os.redhat? && os.release.to_i >= 10 ? 'chrony' : 'root'
+chrony_conf_mode = os.redhat? && os.release.to_i >= 10 ? '0640' : '0600'
+
 control 'chrony-client-01' do
   impact 1.0
   title 'chrony package is installed'
@@ -39,8 +42,8 @@ control 'chrony-client-03' do
   describe file(chrony_conf_file) do
     it { should be_file }
     its('owner') { should eq 'root' }
-    its('group') { should eq 'root' }
-    its('mode') { should cmp '0600' }
+    its('group') { should eq chrony_conf_group }
+    its('mode') { should cmp chrony_conf_mode }
     its('content') { should match(/^server pool\.ntp\.org iburst/) }
     its('content') { should match(/^driftfile /) }
     its('content') { should match(/^log measurements statistics tracking$/) }

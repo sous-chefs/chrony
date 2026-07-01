@@ -42,6 +42,18 @@ module Chrony
       def chrony_user
         platform_family?('debian') ? '_chrony' : 'chrony'
       end
+
+      def chrony_conf_group
+        rhel_family_10_or_later? ? chrony_user : 'root'
+      end
+
+      def chrony_conf_mode
+        rhel_family_10_or_later? ? '0640' : '0600'
+      end
+
+      def rhel_family_10_or_later?
+        platform_family?('rhel') && node['platform_version'].to_i >= 10
+      end
     end
   end
 end

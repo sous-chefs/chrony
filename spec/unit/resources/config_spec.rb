@@ -14,6 +14,8 @@ describe 'chrony_config' do
       end
 
       let(:conf_file) { '/etc/chrony.conf' }
+      let(:conf_group) { 'root' }
+      let(:conf_mode) { '0600' }
       let(:service_name) { 'chronyd' }
       let(:chrony_user) { 'chrony' }
 
@@ -40,6 +42,23 @@ describe 'chrony_config' do
       end
     end
 
+    context 'on AlmaLinux 10 (RHEL family)' do
+      cached(:chef_run) do
+        ChefSpec::SoloRunner.new(
+          platform: 'almalinux', version: '10',
+          step_into: ['chrony_config']
+        ).converge('test::default')
+      end
+
+      let(:conf_file) { '/etc/chrony.conf' }
+      let(:conf_group) { 'chrony' }
+      let(:conf_mode) { '0640' }
+      let(:service_name) { 'chronyd' }
+      let(:chrony_user) { 'chrony' }
+
+      include_examples 'chrony_config :create'
+    end
+
     context 'on Ubuntu 24.04 (Debian family)' do
       cached(:chef_run) do
         ChefSpec::SoloRunner.new(
@@ -49,6 +68,8 @@ describe 'chrony_config' do
       end
 
       let(:conf_file) { '/etc/chrony/chrony.conf' }
+      let(:conf_group) { 'root' }
+      let(:conf_mode) { '0600' }
       let(:service_name) { 'chrony' }
       let(:chrony_user) { '_chrony' }
 

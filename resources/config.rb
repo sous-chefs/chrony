@@ -45,8 +45,8 @@ action :create do
     source 'chrony.conf.erb'
     cookbook 'chrony'
     owner 'root'
-    group 'root'
-    mode '0600'
+    group chrony_conf_group
+    mode chrony_conf_mode
     variables(
       servers: new_resource.servers,
       pools: new_resource.pools,

@@ -9,8 +9,8 @@ shared_examples 'chrony_config :create' do
     expect(chef_run).to create_template(conf_file)
       .with(
         owner: 'root',
-        group: 'root',
-        mode: '0600'
+        group: conf_group,
+        mode: conf_mode
       )
   end
 
