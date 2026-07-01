@@ -25,6 +25,7 @@ if platform_family?('rhel') && node['platform_version'].to_i >= 10
       [Service]
       Type=simple
     UNIT
+    verify false
     action :create
     notifies :run, 'execute[systemctl daemon-reload]', :immediately
   end
