@@ -5,14 +5,14 @@ The `chrony_config` resource manages the chrony package, service, and configurat
 ## Actions
 
 | Action | Description |
-|---|---|
+| --- | --- |
 | `:create` | Installs the chrony package, manages the configuration file, and enables and starts the service. Default action. |
 | `:delete` | Stops and disables the service, removes the package, and deletes the configuration file. |
 
 ## Properties
 
 | Property | Type | Default | Description |
-|---|---|---|---|
+| --- | --- | --- | --- |
 | `servers` | Hash | `{ 'pool.ntp.org' => 'iburst' }` | NTP servers to configure, keyed by hostname with option strings as values. |
 | `pools` | Hash | `{}` | NTP pools to configure, keyed by hostname with option strings as values. |
 | `allow` | Array | `[]` | Networks or hosts allowed to query the local chrony server. |
