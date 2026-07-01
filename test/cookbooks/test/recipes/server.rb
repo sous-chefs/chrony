@@ -14,5 +14,6 @@ if (platform_family?('rhel') && node['platform_version'].to_i >= 10) || platform
 end
 
 chrony_config 'server' do
+  rtcsync false if (platform_family?('rhel') && node['platform_version'].to_i >= 10) || platform_family?('amazon')
   allow ['10.0.0.0/8']
 end

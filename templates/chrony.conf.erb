@@ -28,5 +28,7 @@ deny <%= deny %>
 # if its offset is larger than 1 second.
 makestep 1.0 3
 
+<% if @rtcsync -%>
 # Enable kernel synchronization of the real-time clock (RTC).
 rtcsync
+<% end -%>

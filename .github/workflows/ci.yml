@@ -44,11 +44,15 @@ jobs:
     steps:
       - name: Check out code
         uses: actions/checkout@v7
-      - name: Install Chef
-        uses: actionshub/chef-install@main
+      - name: Install Cinc Workstation
+        uses: sous-chefs/.github/.github/actions/install-workstation@8.0.4
+        with:
+          version: "25"
       - name: Dokken
         env:
+          CHEF_VERSION: "18"
           CHEF_LICENSE: accept-no-persist
+          KITCHEN_PRODUCT_NAME: cinc
           KITCHEN_LOCAL_YAML: kitchen.dokken.yml
           INSTANCE_NAME: ${{ matrix.suite }}-${{ matrix.os }}
         run: kitchen test "${INSTANCE_NAME//./}"

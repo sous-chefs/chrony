@@ -19,6 +19,7 @@ The `chrony_config` resource manages the chrony package, service, and configurat
 | `deny` | Array | `[]` | Networks or hosts denied access to the local chrony server. |
 | `driftfile` | String | platform-specific | Drift file path. Defaults to `/var/lib/chrony/drift` on RHEL family and `/var/lib/chrony/chrony.drift` on Debian family. |
 | `log_dir` | String | `'/var/log/chrony'` | Directory used for chrony log output. |
+| `rtcsync` | true, false | `true` | Enables the `rtcsync` directive. Set to `false` when running chronyd with `-x` in containers where chronyd must not control the system clock. |
 | `extra_config` | Array | `[]` | Raw configuration lines appended to the generated chrony configuration file. |
 
 ## Examples

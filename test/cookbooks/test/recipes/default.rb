@@ -14,5 +14,6 @@ if (platform_family?('rhel') && node['platform_version'].to_i >= 10) || platform
 end
 
 chrony_config 'default' do
+  rtcsync false if (platform_family?('rhel') && node['platform_version'].to_i >= 10) || platform_family?('amazon')
   extra_config ['log measurements statistics tracking']
 end

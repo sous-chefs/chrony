@@ -28,6 +28,7 @@ property :driftfile, String, default: lazy {
   platform_family?('rhel', 'fedora', 'amazon') ? '/var/lib/chrony/drift' : '/var/lib/chrony/chrony.drift'
 }
 property :log_dir, String, default: '/var/log/chrony'
+property :rtcsync, [true, false], default: true
 property :extra_config, Array, default: []
 
 action :create do
@@ -54,6 +55,7 @@ action :create do
       deny: new_resource.deny,
       driftfile: new_resource.driftfile,
       log_dir: new_resource.log_dir,
+      rtcsync: new_resource.rtcsync,
       extra_config: new_resource.extra_config
     )
     notifies :restart, "service[#{chrony_service_name}]", :delayed
