@@ -38,6 +38,7 @@ action :create do
     group chrony_user
     mode '0755'
     recursive true
+    not_if { ::Dir.exist?(new_resource.log_dir) }
   end
 
   template chrony_conf_file do
