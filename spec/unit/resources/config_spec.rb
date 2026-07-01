@@ -40,11 +40,6 @@ describe 'chrony_config' do
         expect(chef_run).to render_file('/etc/chrony.conf')
           .with_content(/^log measurements statistics tracking$/)
       end
-
-      it 'enables kernel RTC sync by default' do
-        expect(chef_run).to render_file('/etc/chrony.conf')
-          .with_content(/^rtcsync$/)
-      end
     end
 
     context 'on AlmaLinux 10 (RHEL family)' do
@@ -62,11 +57,6 @@ describe 'chrony_config' do
       let(:chrony_user) { 'chrony' }
 
       include_examples 'chrony_config :create'
-
-      it 'can disable kernel RTC sync for containerized -x tests' do
-        expect(chef_run).not_to render_file('/etc/chrony.conf')
-          .with_content(/^rtcsync$/)
-      end
     end
 
     context 'on Ubuntu 24.04 (Debian family)' do

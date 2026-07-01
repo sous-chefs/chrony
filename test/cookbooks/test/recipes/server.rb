@@ -13,7 +13,20 @@ if (platform_family?('rhel') && node['platform_version'].to_i >= 10) || platform
   end
 end
 
+if platform_family?('rhel') && node['platform_version'].to_i >= 10
+  execute 'systemctl daemon-reload' do
+    action :nothing
+  end
+
+  systemd_unit 'chronyd.service.d/kitchen.conf' do
+    content <<~UNIT
+      [Service]
+      Type=simple
+    UNIT
+    notifies :run, 'execute[systemctl daemon-reload]', :immediately
+  end
+end
+
 chrony_config 'server' do
-  rtcsync false if (platform_family?('rhel') && node['platform_version'].to_i >= 10) || platform_family?('amazon')
   allow ['10.0.0.0/8']
 end
