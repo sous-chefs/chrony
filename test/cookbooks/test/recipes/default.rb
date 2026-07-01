@@ -18,6 +18,8 @@ if platform_family?('rhel') && node['platform_version'].to_i >= 10
     action :nothing
   end
 
+  directory '/etc/systemd/system/chronyd.service.d'
+
   systemd_unit 'chronyd.service.d/kitchen.conf' do
     content <<~UNIT
       [Service]
