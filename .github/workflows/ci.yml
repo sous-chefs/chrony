@@ -55,4 +55,10 @@ jobs:
           KITCHEN_PRODUCT_NAME: cinc
           KITCHEN_LOCAL_YAML: kitchen.dokken.yml
           INSTANCE_NAME: ${{ matrix.suite }}-${{ matrix.os }}
-        run: kitchen test "${INSTANCE_NAME//./}"
+        run: |
+          INSTANCE="${INSTANCE_NAME//./}"
+          kitchen test "$INSTANCE" || {
+            kitchen exec "$INSTANCE" -c 'systemctl status chronyd --no-pager -l || true'
+            kitchen exec "$INSTANCE" -c 'journalctl -xeu chronyd --no-pager -n 100 || true'
+            exit 1
+          }
